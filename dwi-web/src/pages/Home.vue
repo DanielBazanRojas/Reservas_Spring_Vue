@@ -9,16 +9,28 @@ import { RouterLink } from 'vue-router';
       <img src="../assets/travel.svg" alt="">
       <span class="text-xl font-bold">Joymeyros Tours</span>
     </a>
-    <nav class="hidden lg:flex gap-4">
-      <a class="hover:underline" href="#Opinions">
-        Opiniones
-      </a>
-      <a class="hover:underline" href="#About">
-        Sobre Nosotros
-      </a>
-      <a class="hover:underline" href="#Contact">
-        Contacto
-      </a>
+    <nav class="hidden lg:flex gap-2 content-center">
+      <div class="grid grid-cols-5 content-center">
+        <a class="grid place-content-center p-0 m-0 hover:underline" href="#Opinions">
+          Opiniones
+        </a>
+        <a class="grid place-content-center p-0 m-0 hover:underline" href="#About">
+          Sobre Nosotros
+        </a>
+        <a class="grid place-content-center p-0 m-0 hover:underline" href="#Contact">
+          Contacto
+        </a>
+        <RouterLink class="grid place-content-center" to="/login">
+          <button class="grid place-content-center p-0 m-0 items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2">
+              Ingresar
+            </button>
+          </RouterLink>
+          <RouterLink to="/register">
+          <button class="grid place-content-center p-0 m-0 items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2">
+              Registrarse
+            </button>
+          </RouterLink>
+      </div>
     </nav>
     <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 lg:hidden">
       <img src="../assets/hamburguer.svg" alt="">
