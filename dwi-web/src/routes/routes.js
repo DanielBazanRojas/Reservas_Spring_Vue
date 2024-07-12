@@ -4,6 +4,7 @@ import Reservas from "../pages/Reservas.vue";
 import Pago from "../pages/Pago.vue";
 import Login from "../pages/Login.vue";
 import Register from "../pages/Register.vue";
+import ConfirmacionPago from "../pages/ConfirmacionPago.vue";
 
 const routes = [
   {
@@ -25,6 +26,10 @@ const routes = [
   {
     path: "/register",
     component: Register,
+  },
+  {
+    path: "/confirmacion",
+    component: ConfirmacionPago,
   },
 ];
 

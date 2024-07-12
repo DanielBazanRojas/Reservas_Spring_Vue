@@ -67,11 +67,11 @@ import { RouterLink } from 'vue-router';
             </label>
             <select class="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
               <option value="">Seleccionar</option>
-              <option value="1">1 person</option>
-              <option value="2">2 people</option>
-              <option value="3">3 people</option>
-              <option value="4">4 people</option>
-              <option value="5">5+ people</option>
+              <option value="1">1 persona</option>
+              <option value="2">2 personas</option>
+              <option value="3">3 personas</option>
+              <option value="4">4 personas</option>
+              <option value="5">5+ personas</option>
             </select>
           </div>
           <div class="grid gap-2">
@@ -124,12 +124,14 @@ import { RouterLink } from 'vue-router';
             </div>
           </div>
         </div>
-        <button
-          class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 rounded-md px-8 w-full"
-          type="submit"
-        >
-          Reservar ahora
-        </button>
+        <RouterLink to="/pago">
+          <button
+            class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 rounded-md px-8 w-full"
+            type="submit"
+          >
+            Reservar ahora
+          </button>
+        </RouterLink>
       </form>
     </div>
     <div class="grid gap-4">
@@ -167,7 +169,3 @@ import { RouterLink } from 'vue-router';
   </div>
 </div>
 </template>
-
-<script lang="js">
-    
-</script>
