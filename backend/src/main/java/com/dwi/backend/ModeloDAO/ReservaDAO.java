@@ -97,6 +97,7 @@ public class ReservaDAO implements CRUDReserva {
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
+                    System.out.println("Error al guardar la reserva: " + e.getMessage());
         } finally {
             try {
                 if (pst != null) pst.close();
