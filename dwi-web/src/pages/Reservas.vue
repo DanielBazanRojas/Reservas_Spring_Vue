@@ -22,12 +22,10 @@ const realizarReserva = async () => {
     });
 
     if (response.data) {
-      // Reserva exitosa, redirigir a la página de pago
-      router.push('/pago');
+      router.push('/confirmacion');
     }
   } catch (error) {
     console.error('Error al realizar la reserva:', error);
-    // Manejar el error (mostrar mensaje al usuario, etc.)
   }
 };
 </script>
