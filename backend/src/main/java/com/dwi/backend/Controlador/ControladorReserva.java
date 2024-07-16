@@ -6,12 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/reservas")
-@CrossOrigin( origins = "http://localhost:5173")
 public class ControladorReserva {
 
     @Autowired
@@ -24,11 +27,11 @@ public class ControladorReserva {
 
     @PostMapping
     public ResponseEntity<?> agregarReserva(@RequestBody Reserva reserva) {
-        boolean nuevaReserva = dao.add(reserva);
-        if (!nuevaReserva) { // Check if nuevaReserva is false
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        boolean nuevaReserva = dao.addReservaAndReturnSuccess(reserva);
+        if (!nuevaReserva) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al crear la reserva");
         }
-        return ResponseEntity.ok(nuevaReserva);
+        return ResponseEntity.status(HttpStatus.CREATED).body(reserva);
     }
 
     @PutMapping("/{id}")

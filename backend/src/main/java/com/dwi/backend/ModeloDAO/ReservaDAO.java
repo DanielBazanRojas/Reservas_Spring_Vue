@@ -24,7 +24,11 @@ public class ReservaDAO implements CRUDReserva {
             pst = con.prepareStatement(sql);
             pst.setInt(1, reserva.getIdCliente());
             pst.setInt(2, reserva.getIdPaquete());
-            pst.setInt(3, reserva.getIdEmpleado());
+            if (reserva.getIdEmpleado() != null) {
+                pst.setInt(3, reserva.getIdEmpleado());
+            } else {
+                pst.setNull(3, Types.INTEGER);
+            }
             pst.setDate(4, new java.sql.Date(reserva.getFechaReserva().getTime()));
             pst.setDate(5, new java.sql.Date(reserva.getFechaSalida().getTime()));
             pst.setDate(6, new java.sql.Date(reserva.getFechaRetorno().getTime()));

@@ -5,6 +5,14 @@ import axios from 'axios';
 
 const router = useRouter();
 
+const paquetes = [
+  { id: 1, nombre: 'Mancora' },
+  { id: 2, nombre: 'Cuzco' },
+  { id: 3, nombre: 'Tumbes' },
+  { id: 4, nombre: 'Cajamarca' },
+  { id: 5, nombre: 'Tarapoto' }
+];
+
 const paquete = ref('');
 const fechaSalida = ref('');
 const fechaRetorno = ref('');
@@ -13,20 +21,29 @@ const serviciosAdicionales = ref([]);
 
 const realizarReserva = async () => {
   try {
-    const response = await axios.post('http://localhost:8080/reservas', {
-      idPaquete: paquete.value,
+    const response = await axios.post('/reservas', {
+      idPaquete: parseInt(paquete.value),
       fechaSalida: fechaSalida.value,
       fechaRetorno: fechaRetorno.value,
       cantidadPersonas: parseInt(cantidadPersonas.value),
-      // Otros campos necesarios como idCliente, idEmpleado, etc.
+      idCliente: 1,
+      fechaReserva: new Date().toISOString().split('T')[0],
+      idEmpleado: null
     });
 
     if (response.data) {
-      router.push('/confirmacion');
+      alert('Reserva realizada con éxito');
+      router.push('/');
     }
   } catch (error) {
     console.error('Error al realizar la reserva:', error);
+    alert('Error al realizar la reserva. Por favor, intente de nuevo.');
   }
+};
+
+const obtenerNombrePaquete = (idPaquete) => {
+  const paqueteSeleccionado = paquetes.find(p => p.id === parseInt(idPaquete));
+  return paqueteSeleccionado ? paqueteSeleccionado.nombre : 'No seleccionado';
 };
 </script>
 
@@ -56,14 +73,14 @@ const realizarReserva = async () => {
               for="package">
               Paquete Turistico
             </label>
-            <select name="" id="webos"
+            <select v-model="paquete"
               class="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
               <option value="">Selecciona un paquete</option>
-              <option value="Mancora">Mancora</option>
-              <option value="Cuzco">Cuzco</option>
-              <option value="Tumbes">Tumbes</option>
-              <option value="Cajamarca">Cajamarca</option>
-              <option value="Tarapoto">Tarapoto</option>
+              <option value="1">Mancora</option>
+              <option value="2">Cuzco</option>
+              <option value="3">Tumbes</option>
+              <option value="4">Cajamarca</option>
+              <option value="5">Tarapoto</option>
             </select>
           </div>
           <div class="grid grid-cols-2 gap-4">
@@ -72,14 +89,14 @@ const realizarReserva = async () => {
                 for="check-in">
                 Fecha de Salida
               </label>
-              <input type="date" name="" id="" class="bg-background border border-border p-1.5">
+              <input v-model="fechaSalida" type="date" class="bg-background border border-border p-1.5">
             </div>
             <div class="grid gap-2">
               <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 for="check-out">
                 Fecha de Retorno
               </label>
-              <input type="date" name="" id="" class="bg-background border border-border p-1.5">
+              <input v-model="fechaRetorno" type="date" class="bg-background border border-border p-1.5">
             </div>
           </div>
           <div class="grid grid-cols-2 gap-4">
@@ -88,7 +105,7 @@ const realizarReserva = async () => {
                 for="travelers">
                 Viajeros
               </label>
-              <select
+              <select v-model="cantidadPersonas"
                 class="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
                 <option value="">Seleccionar</option>
                 <option value="1">1 persona</option>
@@ -134,13 +151,11 @@ const realizarReserva = async () => {
               </div>
             </div>
           </div>
-          <RouterLink to="/pago">
-            <button
-              class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 rounded-md px-8 w-full"
-              type="submit">
-              Reservar ahora
-            </button>
-          </RouterLink>
+          <button
+            class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 rounded-md px-8 w-full"
+            type="submit">
+            Reservar ahora
+          </button>
         </form>
       </div>
       <div class="grid gap-4">
@@ -149,23 +164,23 @@ const realizarReserva = async () => {
           <div class="grid gap-4 mt-4">
             <div class="flex items-center justify-between">
               <span>Paquete Turistico</span>
-              <span>Opcion</span>
+              <span>{{ obtenerNombrePaquete(paquete) }}</span>
             </div>
             <div class="flex items-center justify-between">
               <span>Fecha de salida</span>
-              <span>Fecha escogida</span>
+              <span>{{ fechaSalida ? fechaSalida : 'No seleccionada' }}</span>
             </div>
             <div class="flex items-center justify-between">
               <span>Fecha de retorno</span>
-              <span>Fecha escogida</span>
+              <span>{{ fechaRetorno ? fechaRetorno : 'No seleccionada' }}</span>
             </div>
             <div class="flex items-center justify-between">
               <span>Viajeros</span>
-              <span>Nro personas</span>
+              <span>{{ cantidadPersonas ? cantidadPersonas : 'No seleccionado' }}</span>
             </div>
             <div class="flex items-center justify-between">
               <span>Servicios adicionales</span>
-              <span>Servicios escogidos</span>
+              <span>{{ serviciosAdicionales.length > 0 ? serviciosAdicionales.join(', ') : 'Ninguno' }}</span>
             </div>
             <div data-orientation="horizontal" role="none" class="shrink-0 bg-border h-[1px] w-full"></div>
             <div class="flex items-center justify-between font-bold">
