@@ -45,6 +45,8 @@ const obtenerNombrePaquete = (idPaquete) => {
   const paqueteSeleccionado = paquetes.find(p => p.id === parseInt(idPaquete));
   return paqueteSeleccionado ? paqueteSeleccionado.nombre : 'No seleccionado';
 };
+
+
 </script>
 
 <template>

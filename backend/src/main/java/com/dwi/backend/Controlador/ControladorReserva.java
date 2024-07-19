@@ -25,7 +25,7 @@ public class ControladorReserva {
         return dao.listar();
     }
 
-    @PostMapping
+    @PostMapping("/addReservas")
     public ResponseEntity<?> agregarReserva(@RequestBody Reserva reserva) {
         boolean nuevaReserva = dao.addReservaAndReturnSuccess(reserva);
         if (!nuevaReserva) {
